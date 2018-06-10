@@ -22,9 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 //only logged in users can view the below
 Route::group(['middleware'=>'auth'], function(){
 
-    Route::resource('qrcodes', 'QrcodeController');
+    Route::resource('qrcodes', 'QrcodeController')->except(['show']);
 
-    Route::resource('transactions', 'TransactionController');
+    Route::resource('transactions', 'TransactionController')->except(['show']);
 
     Route::resource('users', 'UserController');
     Route::resource('accounts', 'AccountController')->except(['show']);
@@ -63,3 +63,12 @@ Route::group(['middleware'=>'auth'], function(){
 
 });
 
+
+//Routes accessible when logged out
+Route::get('/qrcodes/{id}', 'QrcodeController@show')->name('qrcodes.show');
+
+Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay'); 
+Route::get('/payment/callback', 'PaymentController@handleGatewayCallback');
+Route::post('/qrcodes/show_payment_page', 'QrcodeController@show_payment_page')->name('qrcodes.show_payment_page');
+
+Route::get('/transactions/{id}', 'TransactionController@show')->name('transactions.show');

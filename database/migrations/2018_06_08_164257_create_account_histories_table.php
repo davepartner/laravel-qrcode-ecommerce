@@ -17,7 +17,7 @@ class CreateAccountHistoriesTable extends Migration
             $table->increments('id');
             $table->integer('account_id');
             $table->integer('user_id');
-            $table->string('message');
+            $table->longText('message');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -13,6 +13,9 @@ use App\Models\Qrcode as QrcodeModel;
 use Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Paystack;
+use App\Models\User;
+use App\Models\Transaction;
 
 class QrcodeController extends AppBaseController
 {
@@ -43,6 +46,43 @@ class QrcodeController extends AppBaseController
             ->with('qrcodes', $qrcodes);
     }
 
+
+    public function show_payment_page(Request $request){
+        /**
+         * receive the buyer email
+         * Retrieve user id using the buyer email
+         * initiate transaction
+         * Redirect to paystack payment page
+         */
+
+         $input = $request->all();
+
+         //get the user with this email
+         $user = User::where('email',  $input['email'])->first();
+
+         if(empty($user)){ //user does not exist
+            //create user account 
+            $user = User::create([
+                'name' => $input['email'],
+                'email' => $input['email'],
+                'password' => Hash::make($input['email']),
+            ]);
+         }
+
+        //get the qrcode details
+         $qrcode = QrcodeModel::where('id', $input['qrcode_id'])->first();
+         $transaction = Transaction::create([
+            'user_id' => $user->id,
+            'qrcode_id' => $qrcode->id,
+            'status' => 'initiated',
+            'qrcode_owner_id' => $qrcode->user_id,
+            'payment_method' => 'paystack/card',
+            'amount' => $qrcode->amount
+         ]);
+
+   return view('qrcodes.paystack-form',['qrcode'=> $qrcode, 'transaction'=> $transaction, 'user' => $user]);
+
+    }
     /**
      * Show the form for creating a new Qrcode.
      *

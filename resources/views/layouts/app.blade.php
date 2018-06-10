@@ -116,7 +116,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{!! url('/') !!}">
-                    InfyOm Generator
+                    QRCode Generator
                 </a>
             </div>
 

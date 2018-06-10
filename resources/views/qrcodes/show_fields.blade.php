@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-xs-6">
 
         <!-- Product Name Field -->
         <div class="form-group">
@@ -27,19 +27,19 @@
                 </p>
             </div>
     
-            @if($qrcode->user_id == Auth::user()->id || Auth::user()->role_id < 3)
+            @if(!Auth::guest() && ($qrcode->user_id == Auth::user()->id || Auth::user()->role_id < 3))
         <hr/>
         
             <!-- User Id Field -->
         <div class="form-group">
-            {!! Form::label('user_id', 'User Name:') !!}
-            <p>{!! $qrcode->user_id !!}</p>
+            {!! Form::label('user_id', 'User:') !!}
+            <p>{!! $qrcode->user['email'] !!}</p>
         </div>
 
         <!-- Website Field -->
         <div class="form-group">
             {!! Form::label('website', 'Website:') !!}
-            <p>{!! $qrcode->website !!}</p>
+            <p><a href="{!! $qrcode->website !!}" target="_blank"> {!! $qrcode->website !!}</a></p>
         </div>
 
       
@@ -48,7 +48,7 @@
         <!-- Callback Url Field -->
         <div class="form-group">
             {!! Form::label('callback_url', 'Callback Url:') !!}
-            <p>{!! $qrcode->callback_url !!}</p>
+            <p><a href="{!! $qrcode->callback_url !!}" target="_blank"> {!! $qrcode->callback_url !!}</a></p>
         </div>
 
     
@@ -76,9 +76,11 @@
             {!! Form::label('updated_at', 'Updated At:') !!}
             <p>{!! $qrcode->updated_at !!}</p>
         </div>
-    </div>
+    
 @endif
-    <div class="col-md-5 pull-right">
+
+</div>
+    <div class="col-md-5 pull-right" >
     <!-- Qrcode Path Field -->
     <div class="form-group">
             {!! Form::label('qrcode_path', 'Scan QRcode and Pay With Our App:') !!}
@@ -87,13 +89,41 @@
             </p>
         </div>
 
-    </div>
 
-    @if($qrcode->user_id == Auth::user()->id || Auth::user()->role_id < 3)
+    <form method="post" role="form" class="col-md-6" action="{{ route('qrcodes.show_payment_page') }}">
+        <div class="form-group">
+                @if(Auth::guest())
+                {{-- Only logged out users get to see an email field --}}
+                    <label for="email"> Enter your email </label>
+                        <input type="email" name="email" required id="email" class="form-control"  placeholder="johndoe@gmail.com" >
+                    </div>
+
+                    @else 
+                    <input type="hidden" name="email"   value="{{ Auth::user()->email }}" >
+                    @endif
+                    {{ csrf_field() }}
+
+<input type="hidden" name="qrcode_id"  value="{{ $qrcode->id }}" >
+        <p>
+        <button class="btn btn-success btn-lg" type="submit" value="Pay Now!">
+        <i class="fa fa-plus-circle fa-lg"></i> Pay Now!
+        </button>
+        </p>
+ </form>
+
+
+
+
+    </div>
+</div>
+
+    <div class="clearfix" > </div>
+
+    @if(!Auth::guest() && ($qrcode->user_id == Auth::user()->id || Auth::user()->role_id < 3))
   
-    <div class="col-xs-12">
-<h3 class="text-center "> Transactions done on this QRCode</h3>
-    @include('transactions.table')
+    <div class="col-xs-12" >
+        <h3 class="text-center "> Transactions done on this QRCode</h3>
+            @include('transactions.table')
 
     </div>
 

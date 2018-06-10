@@ -1,20 +1,33 @@
+<div class="col-md-6">
+    <!-- Qrcode Id Field -->
+    <div class="form-group">
+            {!! Form::label('qrcode_id', 'Product Name:') !!}
+            <p><a href="/qrcodes/{!! $transaction->qrcode['id'] !!}" > <b>
+                {!! $transaction->qrcode['product_name'] !!}
+            </b> </a>
+        </p>
+        </div>
 
-<!-- Qrcode Id Field -->
-<div class="form-group">
-        {!! Form::label('qrcode_id', 'Product Name:') !!}
-        <p><a href="/qrcodes/{!! $transaction->qrcode['id'] !!}" > <b>
-            {!! $transaction->qrcode['product_name'] !!}
-        </b> </a>
-    </p>
-    </div>
+        
+    <!-- Amount Field -->
+    <div class="form-group">
+            {!! Form::label('amount', 'Amount:') !!}
+            <p>${!! $transaction->amount !!}</p>
+        </div>
 
-    
-<!-- Amount Field -->
-<div class="form-group">
-        {!! Form::label('amount', 'Amount:') !!}
-        <p>${!! $transaction->amount !!}</p>
-    </div>
+    <!-- Amount Field -->
+    @if($transaction->qrcode['product_url'])
+    <div class="form-group">
+            <p><a href=" {!! $transaction->qrcode['product_url'] !!}" 
+                class="btn btn-success btn-lg"> Return to merchant site</a></p>
+        </div>
+    @endif 
 
+
+</div> 
+
+
+<div class="col-md-6">
 
 <!-- User Id Field -->
 <div class="form-group">
@@ -65,3 +78,4 @@
     <p>{!! $transaction->updated_at->format('D d, M, Y h:i')  !!}</p>
 </div>
 
+</div>
