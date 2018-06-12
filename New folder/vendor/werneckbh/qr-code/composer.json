@@ -1,0 +1,26 @@
+{
+    "name": "werneckbh/qr-code",
+    "description": "QR Code Generator for PHP",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bruno Vaula Werneck",
+            "email": "brunovaulawerneck@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "files": [
+            "src/helpers/constants.php",
+            "src/helpers/functions.php"
+        ],
+        "psr-4": {
+            "QR_Code\\": "src/QR_Code/"
+        }
+    },
+    "require-dev": {
+        "khanamiryan/qrcode-detector-decoder": "^1.0",
+        "phpunit/phpunit": "^6.5"
+    }
+}

@@ -1,0 +1,7 @@
+/vendor
+/composer.lock
+/bin/phpcbf
+/bin/phpcs
+/bin/phpunit
+/swagger.json
+
