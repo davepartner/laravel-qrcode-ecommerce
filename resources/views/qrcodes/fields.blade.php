@@ -6,31 +6,31 @@
 <!-- Website Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('website', 'Website:') !!}
-    {!! Form::text('website', null, ['class' => 'form-control', 'placeholder'=>'https://']) !!}
+    {!! Form::text('website', null, ['class' => 'form-control', 'placeholder'=>'https://','required']) !!}
 </div>
 
 <!-- Company Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('company_name', 'Company Name:') !!}
-    {!! Form::text('company_name', null, ['class' => 'form-control']) !!}
+    {!! Form::text('company_name', null, ['class' => 'form-control','required']) !!}
 </div>
 
 <!-- Product Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('product_name', 'Product Name:') !!}
-    {!! Form::text('product_name', null, ['class' => 'form-control']) !!}
+    {!! Form::text('product_name', null, ['class' => 'form-control','required']) !!}
 </div>
 
 <!-- Product Url Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('product_url', 'Product Url:') !!}
-    {!! Form::text('product_url', null, ['class' => 'form-control']) !!}
+    {!! Form::text('product_url', null, ['class' => 'form-control','required']) !!}
 </div>
 
 <!-- Callback Url Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('callback_url', 'Callback Url:') !!}
-    {!! Form::text('callback_url', null, ['class' => 'form-control']) !!}
+    {!! Form::text('callback_url', null, ['class' => 'form-control','required']) !!}
 </div>
 
 <!-- Qrcode Path Field -->
@@ -42,7 +42,7 @@
 <!-- Amount Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('amount', 'Amount ($):') !!}
-    {!! Form::number('amount', null, ['class' => 'form-control']) !!}
+    {!! Form::number('amount', null, ['class' => 'form-control','required']) !!}
 </div>
 
 <!-- Status Field -->
@@ -50,7 +50,7 @@
     {!! Form::label('status', 'Status:') !!}
     <label class="checkbox-inline">
         {!! Form::hidden('status', false) !!}
-        {!! Form::checkbox('status', '1', null) !!} Active
+        {!! Form::checkbox('status', '1', '1') !!} Active
     </label>
 </div>
 

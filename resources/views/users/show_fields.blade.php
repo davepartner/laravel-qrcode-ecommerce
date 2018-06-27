@@ -5,6 +5,8 @@
     <p>{!! $user->name !!}</p>
 </div>
 
+
+
 <!-- Role Id Field -->
 <div class="form-group">
     {!! Form::label('role_id', 'User level:') !!}

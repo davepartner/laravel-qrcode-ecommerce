@@ -25,6 +25,13 @@ class CreateQrcodeRequest extends FormRequest
      */
     public function rules()
     {
-        return Qrcode::$rules;
+        return [
+            'product_name' => 'required|max:255',
+            'user_id' => 'required',
+            'company_name' => 'required|max:255',
+            'callback_url' => 'required',
+            'product_name' => 'required',
+            'amount' => 'required',
+        ];
     }
 }
