@@ -16,6 +16,7 @@ class QrcodeCollection extends Resource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'amount' => $this->amount,
             'company_name' => $this->company_name,
             'product_name' => $this->product_name,

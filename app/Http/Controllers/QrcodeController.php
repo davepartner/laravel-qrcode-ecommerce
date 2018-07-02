@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use QRCode;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Qrcode as QrcodeModel;
 use Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -125,7 +126,7 @@ class QrcodeController extends AppBaseController
         //generate qrcode
         //save qrcode image in our folder on this site
         $file = 'generated_qrcodes/'.$qrcode->id.'.png'; 
-       $newQrcode = QRCode::text("message")
+       $newQrcode = QRCode::text(route('qrcodes.show', $qrcode->id))
         ->setSize(8)
         ->setMargin(2)
         ->setOutfile($file)
